@@ -1,0 +1,24 @@
+name: Executar main.py a cada 10 minutos
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"  # Executa a cada 10 minutos
+  workflow_dispatch:  # Permite rodar manualmente também
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar o repositório
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Executar o script
+        run: python main.py
