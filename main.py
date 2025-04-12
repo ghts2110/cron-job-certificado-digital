@@ -1,12 +1,13 @@
 import smtplib
 import os
+import checkWebsite 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 
 load_dotenv()
 
-def send_email():
+def send_email():    
     try:
         user = os.getenv('EMAIL_USER')
         password = os.getenv('EMAIL_PASS')
@@ -22,7 +23,13 @@ def send_email():
         mensagem['To'] = receiver
         mensagem['Subject'] = 'Notificação automática: Verificação de certificado digital'
 
-        corpo = "Verificação automática: ainda não é Natal 🎄"
+        ans = checkWebsite.isitchristmas()
+        corpo = "Verificação automática: "
+        if(ans == False):
+            corpo += "ainda não é Natal :("
+        else:
+            corpo += "é Natal 🎄"
+
         mensagem.attach(MIMEText(corpo, 'plain'))
 
         servidor_email.sendmail(user, receiver, mensagem.as_string())
