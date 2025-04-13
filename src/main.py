@@ -1,6 +1,6 @@
 import smtplib
 import os
-import checkWebsite 
+import checkWebsite as checkWebsite 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
