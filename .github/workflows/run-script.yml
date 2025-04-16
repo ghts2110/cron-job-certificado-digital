@@ -21,4 +21,4 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Executar o script
-        run: python main.py
+        run: python src/main.py
