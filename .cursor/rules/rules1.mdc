@@ -1,0 +1,76 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+## TechStack:
+- Next.js: 15.3.1
+- TypeScript: 5.8.3
+- Tremor: 3.18.7
+- Tailwind CSS: 4.1.5
+- @supabase/supabase-js: 2.49.4
+- Jest: 29.7.0
+
+
+---
+
+## Infrastructure & DevOps
+- CI/CD: Automate deployment and testing with GitHub Actions and Vercel.
+- Environment separation: Create `development`, `staging`, and `production` environments.
+- Linting & Code Style:
+  - ESLint for code standards.
+  - Prettier for automatic formatting.
+- Husky + lint-staged: Run lint/tests before `git commit` or `git push`.
+
+---
+
+## Security
+- Row-Level Security (RLS) in Supabase: Ensure users can access only their own data.
+- Rate limiting: Prevent abuse using middleware (e.g., `rate-limit`).
+- Sensitive data encryption: For storing documents, backup secrets, or private info.
+
+---
+
+## Performance & Monitoring
+- Error Monitoring: Use tools like Sentry or LogRocket.
+- Analytics: Use Vercel Analytics for user and traffic insights.
+- Code Splitting & Lazy Loading: Optimize performance on heavy routes/components.
+- Caching:
+  - React Query for API state management and caching.
+  - Automatic revalidation (`revalidate` in Next.js) for updated content.
+
+---
+
+## Testing & Code Quality
+- Integration Testing: With React Testing Library.
+- End-to-End Testing: Use Playwright for full browser-based workflows.
+- Code Coverage: Measure with `--coverage` in Jest.
+- Supabase Testing: Use mocks or separate Supabase project for safe test environments.
+
+---
+
+## User Experience
+- Internationalization (i18n): Use `next-i18next` for multi-language support.
+- Accessibility (a11y): Audit with tools like axe-core and accessibility linting.
+- Animations: Use `framer-motion` for smooth transitions and modern UI feedback.
+
+---
+
+## Documentation
+- Complete README.md: Include setup, usage, deployment, and contribution guidelines.
+- Storybook: Document and test UI components in isolation.
+- API Documentation: Use OpenAPI/Swagger if custom backend or endpoints are present.
+- Changelog: Maintain a `CHANGELOG.md` to track version changes and improvements.
+
+---
+
+## Project Structure
+- Clear folder organization: Separate pages, components, hooks, contexts, services, etc.
+- Import aliases: Use `@/components`, `@/lib`, etc., configured via `tsconfig.json`.
+
+---
+
+## Extra
+- Feature flags: Use `unleash` or simple toggles to manage feature rollout.
+- Dark mode: Enable dark theme using Tailwind (`darkMode: 'class'`).
+- PWA: Turn the app into a Progressive Web App if offline support is needed.
