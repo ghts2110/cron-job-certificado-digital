@@ -1,24 +1,24 @@
 import requests
-from bs4 import BeautifulSoup
-from dotenv import load_dotenv
-import os
+from private import getDoc
 
-load_dotenv()
-
-def isitchristmas():
-    url = os.getenv('WEBSITE_URL')
+def loginWebsit(cert_path):
+    url = 'https://det.sit.trabalho.gov.br/servicos'
 
     try:
-        response = requests.get(url)
-        response.raise_for_status()
+        response = requests.get(url, cert=cert_path, verify=True)
 
-        soup = BeautifulSoup(response.text, "html.parser")
-        answer = soup.find(id="answer").get_text(strip=True)
-        return answer.upper() == "SIM"
+        if response.status_code == 200:
+            print("✅ Acesso com certificado realizado com sucesso!")
+        else:
+            print(f"⚠️ Falha no acesso. Código HTTP: {response.status_code}")
+
+    except requests.exceptions.SSLError as ssl_err:
+        print("❌ Erro SSL — verifique se o certificado e a chave estão corretos ou se falta a cadeia de certificados.")
+        print(ssl_err)
+
     except Exception as e:
-        print(f"Erro ao acessar o site: {e}")
-        return False
+        print("❌ Ocorreu um erro inesperado:")
+        print(e)
 
 if __name__ == "__main__":
-    ans = isitchristmas()
-    print(ans)
+    loginWebsit(getDoc.getCertificate())
