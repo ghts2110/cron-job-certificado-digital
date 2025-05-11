@@ -1,41 +1,10 @@
-import smtplib
-import os
-import checkWebsite as checkWebsite 
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from dotenv import load_dotenv
-
-load_dotenv()
-
-def send_email():    
-    try:
-        user = os.getenv('EMAIL_USER')
-        password = os.getenv('EMAIL_PASS')
-        receiver = os.getenv('EMAIL_RECEIVER')
-
-        servidor_email = smtplib.SMTP('smtp.gmail.com', 587)
-        servidor_email.starttls()
-
-        servidor_email.login(user, password)
-
-        mensagem = MIMEMultipart()
-        mensagem['From'] = user
-        mensagem['To'] = receiver
-        mensagem['Subject'] = 'Notificação automática: Verificação de certificado digital'
-
-        ans = checkWebsite.isitchristmas()
-        corpo = "Verificação automática: "
-        if(ans == False):
-            corpo += "ainda não é Natal :("
-        else:
-            corpo += "é Natal 🎄"
-
-        mensagem.attach(MIMEText(corpo, 'plain'))
-
-        servidor_email.sendmail(user, receiver, mensagem.as_string())
-        print("E-mail enviado com sucesso!")
-    except Exception as e:
-        print(f"Erro ao enviar e-mail: {e}")
+from detSession import iniciar_sessao
+from detApi import verificar_mensagens
+from private import getDoc
 
 if __name__ == "__main__":
-    send_email()
+    session = iniciar_sessao(getDoc.getCertificate())
+
+    if session:
+        token = "<Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbXIiOiJhY2Vzc28uZ292IiwiY25waiI6IiIsImNwZlJlc3BvbnNhdmVsIjoiIiwiZXhwIjoxNzQ2OTQ5NTA1LCJwZXJmaWwiOm51bGwsInBqIjpmYWxzZSwic3ViIjoiNTcwNzE3NjQ0NjgiLCJ1c2VybmFtZSI6IkdFUk1BTkEgTUVMTyBUT1JSRVMgU0FOVE9TIn0.OJRlQjR7tGTg6ioqtc31CuhH2wmf8_-ofNhNb1-zEnE>"
+        verificar_mensagens(session, token, '03956551000111')
